@@ -1,0 +1,22 @@
+{
+  "name": "gameboxd",
+  "version": "1.0.0",
+  "description": "\u0016Gameboxd is a social media website enabling users to follow and rate video games. It also serves as a graduate project to fulfill the requirements for Master of Computer Science at Appalachian State University.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbaldw/Gameboxd.git"
+  },
+  "author": "Joshua Baldwin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jbaldw/Gameboxd/issues"
+  },
+  "homepage": "https://github.com/jbaldw/Gameboxd#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
