@@ -3,7 +3,7 @@ const app = express();
 const port = 8080;
 
 app.get('/', (req, res) => {
-    res.send('Welcome to Gameboxd');
+    res.send('<h1>Welcome to Gameboxd');
 });
 
 app.listen(port, () => {
