@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    console.log(__dirname);
-    res.sendfile(__dirname + '/views/home.html');
+    res.sendfile(path.join(__dirname, '..', 'views', 'home.html'));
 });
 
 module.exports = router;
