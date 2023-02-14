@@ -10,7 +10,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/', home);
 
 app.get('/dbtest', (req, res) => {
-    let pool = createTcpPool;
+    let pool = createTcpPool();
     console.log(pool);
 })
 
