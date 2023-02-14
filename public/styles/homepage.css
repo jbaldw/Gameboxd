@@ -1,0 +1,12 @@
+#main-body {
+    background-color: #CFCFCF;
+}
+
+#main {
+    background-color: #FFFFFF;
+    max-width: 996px;
+    text-align: left;
+    vertical-align: top;
+    margin: 0 auto;
+    border: solid;
+}
