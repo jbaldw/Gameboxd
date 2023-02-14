@@ -11,7 +11,10 @@ app.use('/', home);
 
 app.get('/dbtest', (req, res) => {
     let pool = createTcpPool();
-    console.log(pool);
+    pool.then(() => {
+        console.log(pool);
+        res.send('<h1>Connected</h1>');
+    });
 })
 
 app.listen(port, () => {
