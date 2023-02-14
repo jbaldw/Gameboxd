@@ -12,8 +12,16 @@ app.use('/', home);
 app.get('/dbtest', (req, res) => {
     let pool = createTcpPool();
     pool.then(() => {
-        console.log(pool);
-        res.send('<h1>Connected</h1>');
+        pool.query('select * from Users', (err, data) => {
+            if(err) {
+                console.log(err);
+                res.send('<h1>Connection Failed</h1>');
+            }
+            else {
+                console.log(data);
+                res.send('<h1>Connection Successful</h1>');
+            }
+        });
     });
 })
 
