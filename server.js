@@ -10,8 +10,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/', home);
 
 app.get('/dbtest', (req, res) => {
-    let pool = createTcpPool();
-    pool.then(() => {
+    let tcpPool = createTcpPool();
+    tcpPool.then((pool) => {
         pool.query('select * from Users', (err, data) => {
             if(err) {
                 console.log(err);
