@@ -4,10 +4,10 @@ const mysql = require('promise-mysql');
 
 const createTcpPool = async config => {
     const dbConfig = {
-        host: '10.121.80.3',
-        user: 'root',
-        password: 'hogwarts200',
-        database: 'gameboxd_main',
+        host: process.env.INSTANCE_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
     };
 
     return mysql.createPool(dbConfig);
