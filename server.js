@@ -27,11 +27,16 @@ app.get('/dbtest', (req, res) => {
 });
 
 app.get('/recentTen', (req, res) => {
-    console.log('Hostname: ' + req.hostname);
+    const hostname = req.hostname;
 
-    query.then((data) => {
-        res.send(data);
-    });
+    if(hostname != 'localhost' && hostname != 'gameboxd.com') {
+        res.send("You do not have access to this page");
+    }
+    else {
+        query.then((data) => {
+            res.send(data);
+        });
+    }
 });
 
 app.listen(port, () => {
