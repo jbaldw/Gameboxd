@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const home = require('./routes/home-route.js');
-const createTcpPool =  require('./database.js')
+const createTcpPool = require('./database.js');
+const query = require('./server_scripts/retrieve-games.js');
 const app = express();
 const port = 8080;
 
@@ -23,7 +24,15 @@ app.get('/dbtest', (req, res) => {
             }
         });
     });
-})
+});
+
+app.get('/recentTen', (req, res) => {
+    console.log('Hostname: ' + req.hostname);
+
+    query.then((data) => {
+        res.send(data);
+    });
+});
 
 app.listen(port, () => {
     console.log(`Application listening on Port ${port}`);
