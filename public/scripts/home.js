@@ -14,6 +14,9 @@ axios.get('/recentTen')
 
             galleryItem = $('<div class="gallery-item"></div>');
 
+            galleryItem.css({'background-image': 'url(https://' + response.data[i] + ')',
+                             'background-repeat': 'no-repeat'});
+
             galleryRow.append(galleryItem);
         }
     });

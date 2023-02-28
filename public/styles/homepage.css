@@ -42,15 +42,16 @@ nav a:hover {
   }
   
 .gallery-row {
-display: flex;
-gap: 10px;
+    display: flex;
+    gap: 10px;
 }
 
 .gallery-item {
-width: 200px;
-height: 300px;
-background-color: #ccc;
-border-radius: 10px;
+    width: 200px;
+    height: 300px;
+    background-color: #ccc;
+    border-radius: 10px;
+    background-size: 200px 300px;
 }
   
   
