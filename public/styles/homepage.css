@@ -10,3 +10,7 @@
     margin: 0 auto;
     border: solid;
 }
+
+#navbar_container {
+    background-color: red;
+}
