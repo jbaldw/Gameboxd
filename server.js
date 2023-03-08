@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const home = require('./routes/home-route.js');
 const createTcpPool = require('./database.js');
-const query = require('./server_scripts/retrieve-games.js');
+//const query = require('./server_scripts/retrieve-games.js');
 const app = express();
 const port = 8080;
 
@@ -10,7 +10,13 @@ app.set('view engine', 'ejs');
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.use('/', home);
+app.get('/', (req, res) => {
+    res.render('pages/index.ejs');
+});
+
+app.get('/about', (req, res) => {
+    res.render('pages/about.ejs');
+});
 
 app.get('/dbtest', (req, res) => {
     let tcpPool = createTcpPool();

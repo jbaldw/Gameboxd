@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+        <link rel="stylesheet" href="/public/styles/homepage.css">
+        <script src="/public/scripts/home.js"></script>
+    </head>
+    <body class="container">
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+
+        <main>
+            <div class="jumbotron">
+                <h1>GameBoxd</h1>
+                <p>Welcome to GameBoxd</p>
+
+                <%- include('../partials/game', {
+                    gameTitle: "Galactic Explorers",
+                    gameCoverArtUrl: "https://m.media-amazon.com/images/I/613Py5NEsSL._AC_UF894,1000_QL80_.jpg",
+                    gameDeveloper: "Starship Games",
+                    gamePublisher: "Galactic Publishing",
+                    gameReleaseDate: "November 15, 2022",
+                    gamePlatforms: "PlayStation 5, Xbox Series X/S, PC",
+                    gameGenre: "Sci-fi, Action-adventure",
+                    gameModes: "Single-player, Multiplayer",
+                    gameEsrbRating: "T (Teen)",
+                    gameDescription: "Galactic Explorers is a sci-fi action-adventure game set in a distant galaxy. Players take on the role of a space explorer who travels to different planets to uncover the mysteries of an ancient civilization. The game features a vast open-world with diverse landscapes and environments, where players can explore, fight, and interact with various characters and creatures.",
+                    gameFeatures: [
+                      "Open-world exploration",
+                      "Procedurally generated planets",
+                      "Customizable spacecraft",
+                      "Various weapon and gear upgrades",
+                      "Real-time combat system",
+                      "Crafting and resource gathering",
+                      "NPC factions and alliances",
+                      "Dynamic weather and day/night cycle"
+                    ],
+                    gameReviews: [
+                      "IGN Score: 9.0/10",
+                      "GameSpot Score: 8.5/10",
+                      "PC Gamer Score: 8.8/10",
+                      "Metacritic Score: 87/100"
+                    ]
+                  }); %>
+            </div>
+        </main>
+    </body>
+</html>
