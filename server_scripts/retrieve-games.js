@@ -29,20 +29,25 @@ module.exports = new Promise((resolve, reject) => {
         })
         .then((coverIds) => {
             client
-                .fields("url")
+                .fields(['url', 'game'])
                 .where(generateIds(coverIds))
                 .request(coverEndpoint)
                 .then((response) => {
                     const urls = [];
+                    const games = []
+
+                    console.log(response.data);
+                    console.log(gameIds)
 
                     for (let data of response.data) {
                         urls.push(data.url.substring(2).replace("t_thumb", "t_cover_big"));
+                        games.push(data.game)
                     }
 
                     const coversAndUrls = []
 
                     for (let i = 0; i < coverIds.length; i++) {
-                        coversAndUrls.push({"gameId" : gameIds[i], "url" : urls[i]});
+                        coversAndUrls.push({"gameId" : games[i], "url" : urls[i]});
                     }
 
                     resolve(coversAndUrls);
