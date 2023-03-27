@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+        <link rel="stylesheet" href="/public/styles/homepage.css">
+        <script src="/public/scripts/get-10-random-covers.js"></script>
+        <script src="/public/scripts/get-game-data.js"></script>
+    </head>
+    <body class="container">
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+
+        <main>
+            <div class="jumbotron">
+                <h1>Gameboxd</h1>
+                <p>Welcome to Gameboxd</p>
+
+                <div id="gallery-home"></div>
+
+                <!--<script>getGameData(1030)</script>-->
+            </div>
+        </main>
+    </body>
+</html>

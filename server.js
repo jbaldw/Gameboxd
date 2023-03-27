@@ -3,12 +3,21 @@ const path = require('path');
 const home = require('./routes/home-route.js');
 const createTcpPool = require('./database.js');
 const query = require('./server_scripts/retrieve-games.js');
+const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js');
 const app = express();
 const port = 8080;
 
+app.set('view engine', 'ejs');
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.use('/', home);
+app.get('/', (req, res) => {
+    res.render('pages/index.ejs');
+});
+
+app.get('/about', (req, res) => {
+    res.render('pages/about.ejs');
+});
 
 app.get('/dbtest', (req, res) => {
     let tcpPool = createTcpPool();
@@ -26,7 +35,7 @@ app.get('/dbtest', (req, res) => {
     });
 });
 
-app.get('/recentTen', (req, res) => {
+app.get('/randomTen', (req, res) => {
     const hostname = req.hostname;
 
     if(hostname != 'localhost' && hostname != 'gameboxd.com') {
@@ -37,6 +46,17 @@ app.get('/recentTen', (req, res) => {
             res.send(data);
         });
     }
+});
+
+app.get('/gameData', (req, res) => {
+    const gameId = req.query.gameId;
+    
+    retrieveIndivdualModule.getGameData(gameId).then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 });
 
 app.listen(port, () => {
