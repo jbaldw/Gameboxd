@@ -19,6 +19,14 @@ app.get('/about', (req, res) => {
     res.render('pages/about.ejs');
 });
 
+app.get('/game', (req, res) => {
+    const gameId = req.query.gameId;
+
+    retrieveIndivdualModule.getGameData(gameId).then((data) => {
+        res.render('pages/game.ejs', {data: data});
+    });
+})
+
 app.get('/dbtest', (req, res) => {
     let tcpPool = createTcpPool();
     tcpPool.then((pool) => {
