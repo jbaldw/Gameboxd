@@ -49,6 +49,7 @@ app.get('/game', (req, res) => {
         let genres = "No Genre's Given";
         let platforms = "No Platforms Given";
         let summary = "No Summary Given";
+        let cover = "No Cover Given";
 
         if(data[0].hasOwnProperty('age_ratings')) {
             ratings = retrieveSpecificModule.getGameData(data[0].age_ratings, "*", "age_ratings");
@@ -71,6 +72,10 @@ app.get('/game', (req, res) => {
             summary = data[0].summary;
         }
 
+        if(data[0].hasOwnProperty('cover')) {
+            cover = retrieveSpecificModule.getGameData(data[0].cover, "*", "covers");
+        }
+
         Promise.all([ratings, genres, platforms]).then((values) => {
             values['ratings'] = values[0];
             delete values[0];
@@ -84,7 +89,8 @@ app.get('/game', (req, res) => {
             values['name'] = data[0].name;
             values['release_date'] = releaseDate;
             values['summary'] = summary;
-
+            values['cover'] = cover;
+ 
             res.render('pages/game.ejs', {data: values});
         })
     })
