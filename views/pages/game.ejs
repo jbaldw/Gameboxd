@@ -15,7 +15,8 @@
             <div class="jumbotron bg-primary text-white">
               <h1><%- data.name %></h1>
               <p class="lead"><%- data.summary %></p>
-              <img src="<%- data.cover[0].url %>" width="<%- data.cover[0].width %>" height="<%- data.cover[0].height %>">
+              <div class="gallery-item" style="background-image: url(https://<%-data.cover[0].url%>); background-repeat: no-repeat; height: 100%; width: 100%"></div>
+              <!-- <img src="<%- data.cover[0].url %>" width="<%- data.cover[0].width %>" height="<%- data.cover[0].height %>"> -->
             </div>
             <div class="container-fluid">
               <div class="row">
