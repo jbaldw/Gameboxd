@@ -4,13 +4,40 @@
         <%- include('../partials/head'); %>
     </head>
     <body class="container">
+        <script>
+            <%- console.log(data) %>
+        </script>
         <header>
             <%- include('../partials/header'); %>
         </header>
 
         <main>
             <div class="jumbotron">
-                <h1><%- data[0].name %></h1>
+                <h1><%- data.name %></h1>
+                <p class="lead"><%- data.summary %></p>
+            </div>
+            <div class="container-fluid">
+                <p>
+                    <span>Ratings: </span>
+                    <% for(let rating of data.ratings) { %>
+                        <span><%- rating.category %></span>
+                    <% } %>
+                </p>
+                <p>
+                    <span>Genres: </span>
+                    <% for(let genre of data.genres) { %>
+                        <span><%- genre.name %></span>
+                    <% } %>
+                </p>
+                <p>
+                    <span>Platforms: </span>
+                    <% for(let platform of data.platforms) { %>
+                        <span><%- platform.name %></span>
+                    <% } %>
+                </p>
+                <p>
+                    <span>Release Date: <%- data.release_date %></span>
+                </p>
             </div>
         </main>
     </body>

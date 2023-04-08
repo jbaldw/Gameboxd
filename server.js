@@ -4,6 +4,7 @@ const home = require('./routes/home-route.js');
 const createTcpPool = require('./database.js');
 const query = require('./server_scripts/retrieve-games.js');
 const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js');
+const retrieveSpecificModule = require('./server_scripts/retrieve-specific-data.js');
 const app = express();
 const port = 8080;
 
@@ -20,11 +21,73 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/game', (req, res) => {
-    const gameId = req.query.gameId;
+    const ids = req.query.ids;
 
-    retrieveIndivdualModule.getGameData(gameId).then((data) => {
-        res.render('pages/game.ejs', {data: data});
-    });
+    let fields;
+
+    let endpoint;
+
+    if(req.query.fields == undefined) {
+        fields = "*";
+    }
+    else {
+        fields = req.query.fields;
+    }
+
+    if(req.query.endpoint == undefined) {
+       endpoint = "games";
+    }
+    else {
+        endpoint = req.query.endpoint;
+    }
+
+    const gameData = {};
+
+    retrieveSpecificModule.getGameData(ids, fields, endpoint).then((data) => {
+        let ratings = "No Ratings Given";
+        let releaseDate = "No Release Date Given";
+        let genres = "No Genre's Given";
+        let platforms = "No Platforms Given";
+        let summary = "No Summary Given";
+
+        if(data[0].hasOwnProperty('age_ratings')) {
+            ratings = retrieveSpecificModule.getGameData(data[0].age_ratings, "*", "age_ratings");
+        }
+
+        if(data[0].hasOwnProperty('first_release_date')) {
+            dateMilliseconds = data[0].first_release_date * 1000
+            releaseDate = new Date(dateMilliseconds).toLocaleDateString();
+        }
+
+        if(data[0].hasOwnProperty('genres')) {
+            genres = retrieveSpecificModule.getGameData(data[0].genres, "*", "genres");
+        }
+
+        if(data[0].hasOwnProperty('platforms')) {
+            platforms = retrieveSpecificModule.getGameData(data[0].platforms, "*", "platforms");
+        }
+
+        if(data[0].hasOwnProperty('summary')) {
+            summary = data[0].summary;
+        }
+
+        Promise.all([ratings, genres, platforms]).then((values) => {
+            values['ratings'] = values[0];
+            delete values[0];
+
+            values['genres'] = values[1];
+            delete values[1];
+
+            values['platforms'] = values[2];
+            delete values[2];
+            
+            values['name'] = data[0].name;
+            values['release_date'] = releaseDate;
+            values['summary'] = summary;
+
+            res.render('pages/game.ejs', {data: values});
+        })
+    })
 })
 
 app.get('/dbtest', (req, res) => {
