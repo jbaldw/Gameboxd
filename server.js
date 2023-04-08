@@ -85,12 +85,14 @@ app.get('/game', (req, res) => {
 
             values['platforms'] = values[2];
             delete values[2];
+
+            values['cover'] = values[3];
+            delete values[3];
             
             values['name'] = data[0].name;
             values['release_date'] = releaseDate;
             values['summary'] = summary;
-            values['cover'] = cover;
- 
+            
             res.render('pages/game.ejs', {data: values});
         })
     })
