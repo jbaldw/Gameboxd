@@ -76,7 +76,7 @@ app.get('/game', (req, res) => {
             cover = retrieveSpecificModule.getGameData(data[0].cover, "*", "covers");
         }
 
-        Promise.all([ratings, genres, platforms]).then((values) => {
+        Promise.all([ratings, genres, platforms, cover]).then((values) => {
             values['ratings'] = values[0];
             delete values[0];
 
