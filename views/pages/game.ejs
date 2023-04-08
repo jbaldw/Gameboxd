@@ -12,33 +12,41 @@
         </header>
 
         <main>
-            <div class="jumbotron">
-                <h1><%- data.name %></h1>
-                <p class="lead"><%- data.summary %></p>
+            <div class="jumbotron bg-primary text-white">
+              <h1><%- data.name %></h1>
+              <p class="lead"><%- data.summary %></p>
             </div>
             <div class="container-fluid">
-                <p>
+              <div class="row">
+                <div class="col-md-4">
+                  <p>
                     <span>Ratings: </span>
                     <% for(let rating of data.ratings) { %>
                         <span><%- rating.category %></span>
                     <% } %>
-                </p>
-                <p>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <p>
                     <span>Genres: </span>
                     <% for(let genre of data.genres) { %>
                         <span><%- genre.name %></span>
                     <% } %>
-                </p>
-                <p>
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <p>
                     <span>Platforms: </span>
                     <% for(let platform of data.platforms) { %>
                         <span><%- platform.name %></span>
                     <% } %>
-                </p>
-                <p>
-                    <span>Release Date: <%- data.release_date %></span>
-                </p>
+                  </p>
+                </div>
+              </div>
+              <p>
+                <span>Release Date: <%- data.release_date %></span>
+              </p>
             </div>
-        </main>
+          </main>
     </body>
 </html>
