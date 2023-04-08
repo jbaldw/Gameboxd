@@ -88,6 +88,8 @@ app.get('/game', (req, res) => {
 
             values['cover'] = values[3];
             delete values[3];
+
+            values['cover'][0].url = values['cover'][0].url.substring(2).replace("t_thumb", "t_cover_big")
             
             values['name'] = data[0].name;
             values['release_date'] = releaseDate;
