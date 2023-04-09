@@ -118,22 +118,6 @@ app.get('/game', (req, res) => {
     })
 })
 
-app.get('/dbtest', (req, res) => {
-    let tcpPool = createTcpPool();
-    tcpPool.then((pool) => {
-        pool.query('select * from Users', (err, data) => {
-            if(err) {
-                console.log(err);
-                res.send('<h1>Connection Failed</h1>');
-            }
-            else {
-                console.log(data);
-                res.send('<h1>Connection Successful</h1>');
-            }
-        });
-    });
-});
-
 app.get('/randomTen', (req, res) => {
     const hostname = req.hostname;
 
@@ -157,6 +141,22 @@ app.get('/gameData', (req, res) => {
         console.log(err);
     });
 });
+
+app.post('/addUser', (req, res) => {
+    const username = req.query.username;
+
+    const collectionRef = db.collection('users');
+
+    collectionRef.count().get().then((snapshot) => {
+        const id = snapshot.data().count;
+        const docRef = collectionRef.doc(username);
+
+        docRef.set({
+            userName: username,
+            id: ++id
+        });
+    });
+})
 
 app.listen(port, () => {
     console.log(`Application listening on Port ${port}`);
