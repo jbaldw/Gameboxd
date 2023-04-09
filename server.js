@@ -5,8 +5,26 @@ const createTcpPool = require('./database.js');
 const query = require('./server_scripts/retrieve-games.js');
 const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js');
 const retrieveSpecificModule = require('./server_scripts/retrieve-specific-data.js');
+
+const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+
 const app = express();
 const port = 8080;
+
+initializeApp({
+    credential: applicationDefault()
+  });
+  
+const db = getFirestore();
+
+const docRef = db.collection('users').doc('alovelace');
+
+await docRef.set({
+  first: 'Ada',
+  last: 'Lovelace',
+  born: 1815
+});
 
 app.set('view engine', 'ejs');
 
