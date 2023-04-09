@@ -143,7 +143,7 @@ app.get('/gameData', (req, res) => {
 });
 
 app.post('/addUser', (req, res) => {
-    const username = req.query.username;
+    const username = req.body.username;
 
     const collectionRef = db.collection('users');
 
