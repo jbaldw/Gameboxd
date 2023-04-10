@@ -147,7 +147,7 @@ app.get('/gameData', (req, res) => {
 });
 
 app.post('/addUser', (req, res) => {
-    const username = req.body.params.username;
+    const username = req.params.username;
 
     console.log(username);
 
