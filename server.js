@@ -19,14 +19,6 @@ initializeApp({
   
 const db = getFirestore();
 
-const docRef = db.collection('users').doc('alovelace');
-
-docRef.set({
-  first: 'Ada',
-  last: 'Lovelace',
-  born: 1815
-});
-
 app.set('view engine', 'ejs');
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -159,7 +151,7 @@ app.post('/addUser', (req, res) => {
 
         docRef.set({
             userName: username,
-            id: ++id
+            userId: ++id
         });
     });
 })
