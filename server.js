@@ -5,6 +5,7 @@ const createTcpPool = require('./database.js');
 const query = require('./server_scripts/retrieve-games.js');
 const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js');
 const retrieveSpecificModule = require('./server_scripts/retrieve-specific-data.js');
+const bodyParser = require('body-parser');
 
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
@@ -29,6 +30,9 @@ docRef.set({
 app.set('view engine', 'ejs');
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
     res.render('pages/index.ejs');
@@ -143,7 +147,9 @@ app.get('/gameData', (req, res) => {
 });
 
 app.post('/addUser', (req, res) => {
-    const username = req.body.username;
+    const username = req.body.params.username;
+
+    console.log(username);
 
     const collectionRef = db.collection('users');
 

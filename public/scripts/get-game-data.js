@@ -1,3 +1,3 @@
 function getGameData(gameId) {
-    axios.post('/addUser', {params: {userName: 'Joshua'}});
+    axios.post('/addUser', {params: {username: 'Joshua'}});
 }
