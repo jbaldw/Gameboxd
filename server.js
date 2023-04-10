@@ -146,12 +146,12 @@ app.post('/addUser', (req, res) => {
     const collectionRef = db.collection('users');
 
     collectionRef.count().get().then((snapshot) => {
-        const id = snapshot.data().count;
+        let id = snapshot.data().count;
         const docRef = collectionRef.doc(username);
 
         docRef.set({
-            userName: username,
-            userId: ++id
+            username: username,
+            id: ++id
         });
     });
 })
