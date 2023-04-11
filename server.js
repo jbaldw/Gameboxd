@@ -30,7 +30,7 @@ const port = 8080;
 
 initializeApp({
     credential: applicationDefault()
-  });
+});
   
 const db = getFirestore();
 
