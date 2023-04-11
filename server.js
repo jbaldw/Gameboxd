@@ -7,32 +7,22 @@ const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js
 const retrieveSpecificModule = require('./server_scripts/retrieve-specific-data.js');
 const bodyParser = require('body-parser');
 
-const firebase = require('firebase');
-
-const firebaseui = require('firebaseui');
-
-const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-ui.start('#firebaseui-auth-container', {
-    signInOptions: [
-      {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        requireDisplayName: false
-      }
-    ]
-  });  
-
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
 
-const app = express();
-const port = 8080;
+const firebaseui = require('firebaseui');
 
-initializeApp({
+const firebase = initializeApp({
     credential: applicationDefault()
 });
-  
+
 const db = getFirestore();
+
+const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+
+const app = express();
+const port = 8080;
 
 app.set('view engine', 'ejs');
 
