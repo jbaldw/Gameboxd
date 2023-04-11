@@ -52,7 +52,7 @@ app.get('/about', (req, res) => {
 
 app.get('/signin', (req, res) => {
     res.render('pages/signin.ejs');
-})
+});
 
 app.get('/game', (req, res) => {
     const ids = req.query.ids;
