@@ -8,6 +8,10 @@
     </head>
     <body class="container">
         <script>
+            firebase.initializeApp({
+                credential: applicationDefault()
+            });
+
             const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
             const uiConfig = {
