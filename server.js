@@ -24,6 +24,7 @@ app.set('view engine', 'ejs');
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
@@ -33,6 +34,10 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('pages/about.ejs');
 });
+
+app.get('/sigin', (req, res) => {
+    res.render('pages/signin.ejs');
+})
 
 app.get('/game', (req, res) => {
     const ids = req.query.ids;
