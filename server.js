@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
 
-initializeApp({
+const firebase = initializeApp({
     credential: applicationDefault()
 });
 
@@ -36,7 +36,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/signin', (req, res) => {
-    res.render('pages/signin.ejs');
+    res.render('pages/signin.ejs', {data: firebase});
 });
 
 app.get('/game', (req, res) => {
