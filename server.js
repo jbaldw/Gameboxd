@@ -10,16 +10,11 @@ const bodyParser = require('body-parser');
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
 
-const firebaseui = require('firebaseui');
-
-const firebase = initializeApp({
+initializeApp({
     credential: applicationDefault()
 });
 
 const db = getFirestore();
-
-const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
 
 const app = express();
 const port = 8080;
