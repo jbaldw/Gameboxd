@@ -34,15 +34,21 @@ app.get('/', (req, res) => {
     let uid = -1;
 
     if(typeof token !== 'undefined') {
-        getAuth().verifyIdToken(token).then((decodedToken) => {
-            uid = decodedToken.uid
+        getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
+            if(invalidId) {
+                return res.render('pages/index.ejs', {data: uid});
+            }
+            else {
+                uid = decodedToken.uid
 
-            res.render('pages/index.ejs', {data: uid});
+                return res.render('pages/index.ejs', {data: uid});
+            }
         })
         .catch((err) => {
-            res.render('pages/index.ejs', {data: uid});
+            console.log("ERROR: " + err);
         });
-    } else {
+    } 
+    else {
         res.render('pages/index.ejs', {data: uid});
     }
 });

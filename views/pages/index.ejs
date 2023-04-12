@@ -24,7 +24,7 @@
             let userDiv = document.getElementById('userHandle');
 
             window.onload = (e) => {
-                <% if(typeof data.uid != -1) { %>
+                <% if(data.uid != -1) { %>
                     userDiv.setAttribute("href", "/profile");
                     userDiv.innerHTML = "Profile";
                 <% } else { %>
