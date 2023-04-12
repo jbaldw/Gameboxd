@@ -36,13 +36,15 @@ app.get('/', (req, res) => {
     if(typeof token !== 'undefined') {
         getAuth().verifyIdToken(token).then((decodedToken) => {
             uid = decodedToken.uid
+
+            res.render('pages/index.ejs', {data: uid});
         })
         .catch((err) => {
-
+            res.render('pages/index.ejs', {data: uid});
         });
+    } else {
+        res.render('pages/index.ejs', {data: uid});
     }
-
-    res.render('pages/index.ejs', {data: uid});
 });
 
 app.get('/about', (req, res) => {
