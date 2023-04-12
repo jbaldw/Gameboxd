@@ -50,7 +50,7 @@
             ui.start('#firebaseui-auth-container', uiConfig);
 
             firebase.auth().onAuthStateChanged((user) => {
-                window.user = user; // user is undefined if no user signed in
+                console.log(user);
             });
         </script>
         <header>
