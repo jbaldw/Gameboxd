@@ -48,6 +48,10 @@
                 };
 
             ui.start('#firebaseui-auth-container', uiConfig);
+
+            firebase.auth().onAuthStateChanged((user) => {
+                window.user = user; // user is undefined if no user signed in
+            });
         </script>
         <header>
             <%- include('../partials/header'); %>
