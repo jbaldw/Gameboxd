@@ -24,7 +24,10 @@
                         // User successfully signed in.
                         // Return type determines whether we continue the redirect automatically
                         // or whether we leave that to developer to handle.
-                        console.log(firebaseApp.auth().currentUser.getToken());
+                        firebaseApp.auth().currentUser.getIdToken(false).then((token) => {
+                            console.log(token);
+                        });
+
                         return false;
                     },
                     uiShown: function() {
