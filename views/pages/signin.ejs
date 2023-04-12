@@ -28,6 +28,8 @@
                             console.log(token);
                         });
 
+                        window.location = "https://gameboxd.com/?token=" + token;
+
                         return false;
                     },
                     uiShown: function() {
@@ -52,11 +54,6 @@
                 };
 
             ui.start('#firebaseui-auth-container', uiConfig);
-
-            // firebase.auth().onAuthStateChanged((user) => {
-            //     console.log('User: ' + user['email']);
-            //     window.user = user['email'];
-            // });
         </script>
         <header>
             <%- include('../partials/header'); %>

@@ -56,7 +56,30 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-    res.render('pages/about.ejs');
+    const token = req.query.token;
+
+    let uid = -1;
+
+    if(typeof token !== 'undefined') {
+        getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
+            if(invalidId) {
+                return res.render('pages/about.ejs', {uid: uid});
+            }
+            else {
+                uid = decodedToken.uid
+
+                return res.render('pages/about.ejs', {uid: uid});
+            }
+        })
+        .catch((err) => {
+            console.log("ERROR: " + err);
+
+            return res.render('pages/about.ejs', {uid: uid});
+        });
+    } 
+    else {
+        res.render('pages/about.ejs', {uid: uid});
+    }
 });
 
 app.get('/signin', (req, res) => {
@@ -65,6 +88,9 @@ app.get('/signin', (req, res) => {
 
 app.get('/game', (req, res) => {
     const ids = req.query.ids;
+    const token = req.query.token;
+
+    let uid = -1;
 
     let fields;
 
@@ -137,8 +163,27 @@ app.get('/game', (req, res) => {
             values['name'] = data[0].name;
             values['release_date'] = releaseDate;
             values['summary'] = summary;
-            
-            res.render('pages/game.ejs', {data: values});
+
+            if(typeof token !== 'undefined') {
+                getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
+                    if(invalidId) {
+                        return res.render('pages/game.ejs', {data: values, uid: uid});
+                    }
+                    else {
+                        uid = decodedToken.uid
+        
+                        return res.render('pages/game.ejs', {data: values, uid: uid});
+                    }
+                })
+                .catch((err) => {
+                    console.log("ERROR: " + err);
+        
+                    return res.render('pages/game.ejs', {data: values, uid: uid});
+                });
+            } 
+            else {
+                res.render('pages/game.ejs', {data: values, uid: uid});
+            }
         })
     })
 })
