@@ -13,19 +13,3 @@
         </li>
     </ul>
 </nav>
-
-<script>
-    let userDiv = document.getElementById('userHandle');
-
-    window.onload = (e) => {
-        if(typeof window.user !== 'undefined') {
-            userDiv.setAttribute("href", "/profile");
-            userDiv.innerHTML = "Profile";
-        }
-        else {
-            userDiv.setAttribute("href", "/signin");
-            userDiv.innerHTML = "Sign In";
-        }
-    }
-    
-</script>
