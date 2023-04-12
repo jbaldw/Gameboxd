@@ -36,20 +36,22 @@ app.get('/', (req, res) => {
     if(typeof token !== 'undefined') {
         getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
             if(invalidId) {
-                return res.render('pages/index.ejs', {data: uid});
+                return res.render('pages/index.ejs', {uid: uid});
             }
             else {
                 uid = decodedToken.uid
 
-                return res.render('pages/index.ejs', {data: uid});
+                return res.render('pages/index.ejs', {uid: uid});
             }
         })
         .catch((err) => {
             console.log("ERROR: " + err);
+
+            return res.render('pages/index.ejs', {uid: uid});
         });
     } 
     else {
-        res.render('pages/index.ejs', {data: uid});
+        res.render('pages/index.ejs', {uid: uid});
     }
 });
 

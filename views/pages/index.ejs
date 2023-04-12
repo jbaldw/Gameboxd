@@ -21,12 +21,10 @@
         </main>
 
         <script>
-            <% console.log(data) %>
-
             let userDiv = document.getElementById('userHandle');
 
             window.onload = (e) => {
-                <% if(data.uid != -1) { %>
+                <% if(uid != -1) { %>
                     userDiv.setAttribute("href", "/profile");
                     userDiv.innerHTML = "Profile";
                 <% } else { %>
