@@ -82,6 +82,33 @@ app.get('/about', (req, res) => {
     }
 });
 
+app.get('/profile', (req, res) => {
+    const token = req.query.token;
+
+    let uid = -1;
+
+    if(typeof token !== 'undefined') {
+        getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
+            if(invalidId) {
+                return res.render('pages/profile.ejs', {uid: uid});
+            }
+            else {
+                uid = decodedToken.uid
+
+                return res.render('pages/profile.ejs', {uid: uid});
+            }
+        })
+        .catch((err) => {
+            console.log("ERROR: " + err);
+            
+            return res.render('pages/profile.ejs', {uid: uid});
+        });
+    }
+    else {
+        res.render('pages/profile.ejs', {uid: uid});
+    }
+});
+
 app.get('/signin', (req, res) => {
     res.render('pages/signin.ejs');
 });

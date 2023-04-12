@@ -20,12 +20,20 @@
             </div>
         </main>
 
+        <!-- Currently needs to be added on all full pages in views -->
         <script>
+            let logoDiv = document.getElementById('logoHandle');
+            let homeDiv = document.getElementById('homeHandle');
+            let aboutDiv = document.getElementById('aboutHandle');
             let userDiv = document.getElementById('userHandle');
 
             window.onload = (e) => {
                 <% if(uid != -1) { %>
-                    userDiv.setAttribute("href", "/profile");
+                    logoDiv.setAttribute("href", "/?token=" + <%- uid %>);
+                    homeDiv.setAttribute("href", "/?token=" + <%- uid %>);
+                    aboutDiv.setAttribute("href", "/about?token=" + <%- uid %>);
+                    userDiv.setAttribute("href", "/profile?token=" + <%- uid %>);
+
                     userDiv.innerHTML = "Profile";
                 <% } else { %>
                     userDiv.setAttribute("href", "/signin");
