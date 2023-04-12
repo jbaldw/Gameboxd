@@ -50,7 +50,8 @@
             ui.start('#firebaseui-auth-container', uiConfig);
 
             firebase.auth().onAuthStateChanged((user) => {
-                console.log(user);
+                console.log('User: ' + user);
+                window.user = user;
             });
         </script>
         <header>
