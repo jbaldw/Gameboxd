@@ -9,16 +9,20 @@
         </li>
         
         <li class="nav-item">
-            <a id="user" class="nav-link" href="/signin">Sign In</a>
+            <a id="userHandle" class="nav-link" href="/signin">Sign In</a>
         </li>
     </ul>
 </nav>
 
 <script>
-    let userHandle = document.getElementById('user');
+    let userDiv = document.getElementById('userHandle');
 
     if(typeof window.user !== 'undefined') {
-        userHandle.setAttribute("href", "/profile");
-        userHandle.innerHTML = "Profile";
+        userDiv.setAttribute("href", "/profile");
+        userDiv.innerHTML = "Profile";
+    }
+    else {
+        userDiv.setAttribute("href", "/signin");
+        userDiv.innerHTML = "Sign In";
     }
 </script>
