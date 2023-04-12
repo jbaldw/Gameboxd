@@ -25,10 +25,8 @@
                         // Return type determines whether we continue the redirect automatically
                         // or whether we leave that to developer to handle.
                         firebaseApp.auth().currentUser.getIdToken(false).then((token) => {
-                            console.log(token);
+                            window.location = "https://gameboxd.com/?token=" + token;
                         });
-
-                        window.location = "https://gameboxd.com/?token=" + token;
 
                         return false;
                     },
