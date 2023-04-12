@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json())
 
+// Endpoint for the home page
 app.get('/', (req, res) => {
     const token = req.query.token;
 
@@ -36,25 +37,26 @@ app.get('/', (req, res) => {
     if(typeof token !== 'undefined') {
         getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
             if(invalidId) {
-                return res.render('pages/index.ejs', {uid: uid});
+                return res.render('pages/index.ejs', {uid: uid, token: token});
             }
             else {
                 uid = decodedToken.uid
 
-                return res.render('pages/index.ejs', {uid: uid});
+                return res.render('pages/index.ejs', {uid: uid, token: token});
             }
         })
         .catch((err) => {
             console.log("ERROR: " + err);
 
-            return res.render('pages/index.ejs', {uid: uid});
+            return res.render('pages/index.ejs', {uid: uid, token: token});
         });
     } 
     else {
-        res.render('pages/index.ejs', {uid: uid});
+        res.render('pages/index.ejs', {uid: uid, token: token});
     }
 });
 
+// Endpoint for the about page
 app.get('/about', (req, res) => {
     const token = req.query.token;
 
@@ -63,25 +65,26 @@ app.get('/about', (req, res) => {
     if(typeof token !== 'undefined') {
         getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
             if(invalidId) {
-                return res.render('pages/about.ejs', {uid: uid});
+                return res.render('pages/about.ejs', {uid: uid, token: token});
             }
             else {
                 uid = decodedToken.uid
 
-                return res.render('pages/about.ejs', {uid: uid});
+                return res.render('pages/about.ejs', {uid: uid, token: token});
             }
         })
         .catch((err) => {
             console.log("ERROR: " + err);
 
-            return res.render('pages/about.ejs', {uid: uid});
+            return res.render('pages/about.ejs', {uid: uid, token: token});
         });
     } 
     else {
-        res.render('pages/about.ejs', {uid: uid});
+        res.render('pages/about.ejs', {uid: uid, token: token});
     }
 });
 
+// Endpoint for retrieving user profile data
 app.get('/profile', (req, res) => {
     const token = req.query.token;
 
@@ -90,22 +93,22 @@ app.get('/profile', (req, res) => {
     if(typeof token !== 'undefined') {
         getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
             if(invalidId) {
-                return res.render('pages/profile.ejs', {uid: uid});
+                return res.render('pages/profile.ejs', {uid: uid, token: token});
             }
             else {
                 uid = decodedToken.uid
 
-                return res.render('pages/profile.ejs', {uid: uid});
+                return res.render('pages/profile.ejs', {uid: uid, token: token});
             }
         })
         .catch((err) => {
             console.log("ERROR: " + err);
             
-            return res.render('pages/profile.ejs', {uid: uid});
+            return res.render('pages/profile.ejs', {uid: uid, token: token});
         });
     }
     else {
-        res.render('pages/profile.ejs', {uid: uid});
+        res.render('pages/profile.ejs', {uid: uid, token: token});
     }
 });
 
@@ -113,6 +116,7 @@ app.get('/signin', (req, res) => {
     res.render('pages/signin.ejs');
 });
 
+// Endpoint for retrieving individual game data
 app.get('/game', (req, res) => {
     const ids = req.query.ids;
     const token = req.query.token;
@@ -194,27 +198,28 @@ app.get('/game', (req, res) => {
             if(typeof token !== 'undefined') {
                 getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
                     if(invalidId) {
-                        return res.render('pages/game.ejs', {data: values, uid: uid});
+                        return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
                     }
                     else {
                         uid = decodedToken.uid
         
-                        return res.render('pages/game.ejs', {data: values, uid: uid});
+                        return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
                     }
                 })
                 .catch((err) => {
                     console.log("ERROR: " + err);
         
-                    return res.render('pages/game.ejs', {data: values, uid: uid});
+                    return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
                 });
             } 
             else {
-                res.render('pages/game.ejs', {data: values, uid: uid});
+                res.render('pages/game.ejs', {data: values, uid: uid, token: token});
             }
         })
     })
 })
 
+// Endpoint for retrieving 10 random games
 app.get('/randomTen', (req, res) => {
     const hostname = req.hostname;
 
@@ -228,6 +233,7 @@ app.get('/randomTen', (req, res) => {
     }
 });
 
+// Endpoint for retrieving raw individual game data
 app.get('/gameData', (req, res) => {
     const gameId = req.query.gameId;
     
@@ -239,6 +245,7 @@ app.get('/gameData', (req, res) => {
     });
 });
 
+// Endpoint for adding a user to Firestore
 app.post('/addUser', (req, res) => {
     const username = req.body.params.username;
 

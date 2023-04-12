@@ -24,10 +24,10 @@
 
             window.onload = (e) => {
                 <% if(uid != -1) { %>
-                    logoDiv.setAttribute("href", "/?token=" + <%- uid %>);
-                    homeDiv.setAttribute("href", "/?token=" + <%- uid %>);
-                    aboutDiv.setAttribute("href", "/about?token=" + <%- uid %>);
-                    userDiv.setAttribute("href", "/profile?token=" + <%- uid %>);
+                    logoDiv.setAttribute("href", "/?token=" + "<%- token %>");
+                    homeDiv.setAttribute("href", "/?token=" + "<%- token %>");
+                    aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
+                    userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
 
                     userDiv.innerHTML = "Profile";
                 <% } else { %>
