@@ -13,7 +13,7 @@ initializeApp({
     credential: applicationDefault()
 });
 
-getAuth().verifyIdToken("eyJhbGciOiJSUzI1NiIsImtpZCI6ImM4MjNkMWE0MTg5ZjI3NThjYWI4NDQ4ZmQ0MTIwN2ViZGZhMjVlMzkiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSm9zaHVhIEJhbGR3aW4iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUdObXl4WUVwYVR0eDJWSkR6T25PY0tVSE5DNXM4bVRwYlhHVDhSNU5UellKZz1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9nYW1lYm94ZC0zNzY1MTkiLCJhdWQiOiJnYW1lYm94ZC0zNzY1MTkiLCJhdXRoX3RpbWUiOjE2ODEzMjIyOTYsInVzZXJfaWQiOiJuTVFTWWRpMmd2VmllbjRDSmNzQlQ4UkVaVUsyIiwic3ViIjoibk1RU1lkaTJndlZpZW40Q0pjc0JUOFJFWlVLMiIsImlhdCI6MTY4MTMyMjI5NiwiZXhwIjoxNjgxMzI1ODk2LCJlbWFpbCI6ImJhbGR3aW5qZDJAYXBwc3RhdGUuZWR1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDY0MjI5ODc2MzE5OTczNDQ0ODkiXSwiZW1haWwiOlsiYmFsZHdpbmpkMkBhcHBzdGF0ZS5lZHUiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.ALgyWZvMv5B0OdCnwiz2N447CtSp5v7NIYrE8Tup3-DExc0_1QYiTqCzBgMd6nzqIPBVwjSae1UjLKM6uAM6JctwY1HHX7tzkHXm7BYtIiZsFebn4j2GkWlwuVKowzrr3C02QzLrJtXjnvQ7bRqjf5KMCA0d6v2SFlsRunpkCJKGsUDKT2FV5SLy57DBa3Vd06WoS7fqaiqywxCAnJ57aGL9e6qlIIHThfIHN7wcaQd5zuzUTsRnFHeM0Tly17Dqu_gUEtxTp5anYk6I2EGkIOW8dh2PsXzoKBYlpdhBu6ypg9dGu6fteSWEuxyh6m6F5By3V0Flum3keIOlSD9QUw").then((decodedToken) => {console.log("UID: " + decodedToken.uid)}).catch((err) => {console.log("ERROR: " + err)});
+
 
 const db = getFirestore();
 
@@ -29,7 +29,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-    res.render('pages/index.ejs');
+    const token = req.query.token;
+
+    let uid = -1;
+
+    if(typeof token !== 'undefined') {
+        getAuth().verifyIdToken(token).then((decodedToken) => {
+            uid = decodedToken.uid
+        })
+        .catch((err) => {
+
+        });
+    }
+
+    res.render('pages/index.ejs', {data: uid});
 });
 
 app.get('/about', (req, res) => {
