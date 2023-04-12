@@ -1,7 +1,5 @@
 const express = require('express');
 const path = require('path');
-const home = require('./routes/home-route.js');
-const createTcpPool = require('./database.js');
 const query = require('./server_scripts/retrieve-games.js');
 const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js');
 const retrieveSpecificModule = require('./server_scripts/retrieve-specific-data.js');
@@ -10,7 +8,7 @@ const bodyParser = require('body-parser');
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
 
-const firebase = initializeApp({
+initializeApp({
     credential: applicationDefault()
 });
 
@@ -36,7 +34,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/signin', (req, res) => {
-    res.render('pages/signin.ejs', {data: firebase});
+    res.render('pages/signin.ejs');
 });
 
 app.get('/game', (req, res) => {
