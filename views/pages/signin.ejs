@@ -20,16 +20,17 @@
 
             const uiConfig = {
                 callbacks: {
-                    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-                    // User successfully signed in.
-                    // Return type determines whether we continue the redirect automatically
-                    // or whether we leave that to developer to handle.
-                    return true;
+                        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                        // User successfully signed in.
+                        // Return type determines whether we continue the redirect automatically
+                        // or whether we leave that to developer to handle.
+                        console.log(authResult);
+                        return false;
                     },
                     uiShown: function() {
-                    // The widget is rendered.
-                    // Hide the loader.
-                    document.getElementById('loader').style.display = 'none';
+                        // The widget is rendered.
+                        // Hide the loader.
+                        document.getElementById('loader').style.display = 'none';
                     }
                 },
                 // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
@@ -49,10 +50,10 @@
 
             ui.start('#firebaseui-auth-container', uiConfig);
 
-            firebase.auth().onAuthStateChanged((user) => {
-                console.log('User: ' + user['email']);
-                window.user = user['email'];
-            });
+            // firebase.auth().onAuthStateChanged((user) => {
+            //     console.log('User: ' + user['email']);
+            //     window.user = user['email'];
+            // });
         </script>
         <header>
             <%- include('../partials/header'); %>
