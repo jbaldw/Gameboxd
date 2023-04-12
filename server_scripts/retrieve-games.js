@@ -36,9 +36,6 @@ module.exports = new Promise((resolve, reject) => {
                     const urls = [];
                     const games = []
 
-                    console.log(response.data);
-                    console.log(gameIds)
-
                     for (let data of response.data) {
                         urls.push(data.url.substring(2).replace("t_thumb", "t_cover_big"));
                         games.push(data.game)
