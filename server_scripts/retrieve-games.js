@@ -5,7 +5,9 @@ const igdb = require('igdb-api-node').default;
 const gameEndpoint = 'https://api.igdb.com/v4/games';
 const coverEndpoint = 'https://api.igdb.com/v4/covers'
 const rawQueryString = 'fields *;';
-const gameIds = Array(10).fill().map(() => Math.trunc(9999 * Math.random()));
+//const gameIds = Array(10).fill().map(() => Math.trunc(9999 * Math.random()));
+
+let currentUnixTime = Math.floor(new Date().getTime() / 1000)
 
 function generateIds(ids) {
     return "id = (" + ids + ");";
@@ -16,7 +18,8 @@ const client = igdb(process.env.CLIENT_ID, process.env.AUTHORIZATION);
 module.exports = new Promise((resolve, reject) => {
     client
         .fields("cover")
-        .where(generateIds(gameIds))
+        .where("date < currentUnixTime & date > currentUnixTime - 604800")
+        .sort("date desc")
         .request(gameEndpoint)
         .then((response) => {
             const coverIds = [];
