@@ -13,8 +13,6 @@ initializeApp({
     credential: applicationDefault()
 });
 
-
-
 const db = getFirestore();
 
 const app = express();
@@ -112,6 +110,7 @@ app.get('/profile', (req, res) => {
     }
 });
 
+// Endpoint for the signin page
 app.get('/signin', (req, res) => {
     res.render('pages/signin.ejs');
 });
