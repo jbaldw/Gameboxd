@@ -221,16 +221,12 @@ app.get('/game', (req, res) => {
 
 // Endpoint for retrieving 10 random games
 app.get('/randomTen', (req, res) => {
-    const hostname = req.hostname;
-
-    if(hostname != 'localhost' && hostname != 'gameboxd.com') {
-        res.send("You do not have access to this page");
-    }
-    else {
-        query.then((data) => {
-            res.send(data);
-        });
-    }
+    query.then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 });
 
 // Endpoint for retrieving raw individual game data
