@@ -7,8 +7,6 @@ const coverEndpoint = 'https://api.igdb.com/v4/covers'
 const rawQueryString = 'fields *;';
 //const gameIds = Array(10).fill().map(() => Math.trunc(9999 * Math.random()));
 
-let currentUnixTime = Math.floor(new Date().getTime() / 1000)
-
 function generateIds(ids) {
     return "id = (" + ids + ");";
 }
@@ -16,6 +14,8 @@ function generateIds(ids) {
 const client = igdb(process.env.CLIENT_ID, process.env.AUTHORIZATION);
 
 module.exports = new Promise((resolve, reject) => {
+    let currentUnixTime = Math.floor(new Date().getTime() / 1000)
+
     client
         .fields(["cover", "first_release_date"])
         .where("first_release_date < " + currentUnixTime + " & first_release_date > " + (currentUnixTime - 604800))
