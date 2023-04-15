@@ -28,8 +28,6 @@
             let aboutDiv = document.getElementById('aboutHandle');
             let userDiv = document.getElementById('userHandle');
 
-            let galleryItems = document.getElementsByClassName('gallery-item');
-
             window.onload = (e) => {
                 <% if(uid != -1) { %>
                     logoDiv.setAttribute("href", "/?token=" + "<%- token %>");
@@ -37,9 +35,10 @@
                     aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
                     userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
 
+                    let galleryItems = document.getElementsByClassName('gallery-item');
+
                     for (let i = 0; i < galleryItems.length; i++) {
                         let anchor = galleryItems[i].firstChild;
-                        console.log(anchor);
                         anchor.setAttribute("href", "/game?token=" + "<%- token %>" + "&ids=" + galleryItems[i].getAttribute("game-id"));
                     }
 
