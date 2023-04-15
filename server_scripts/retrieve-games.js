@@ -17,15 +17,17 @@ const client = igdb(process.env.CLIENT_ID, process.env.AUTHORIZATION);
 
 module.exports = new Promise((resolve, reject) => {
     client
-        .fields("cover")
-        .where("date < currentUnixTime & date > currentUnixTime - 604800")
-        .sort("date desc")
+        .fields(["cover", "first_release_date"])
+        .where("first_release_date < " + currentUnixTime + " & first_release_date > " + (currentUnixTime - 604800))
+        .sort("first_release_date desc")
         .request(gameEndpoint)
         .then((response) => {
             const coverIds = [];
 
             for (let data of response.data) {
-                coverIds.push(data.cover);
+                if(data.cover) {
+                    coverIds.push(data.cover);
+                }
             }
 
             return coverIds;
