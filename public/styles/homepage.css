@@ -36,6 +36,7 @@ nav a:hover {
 #gallery-home {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     padding: 10px 0px 10px 0px;
     gap: 10px;
@@ -43,6 +44,7 @@ nav a:hover {
   
 .gallery-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
