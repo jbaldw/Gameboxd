@@ -1,7 +1,9 @@
 <div id="gallery-home">
     <div class="gallery-row">
         <% for(let game of data) { %>
-            <div class="gallery-item" game-id="<%- game.gameId %>" style="background-image: url('https://<%- game.url %>'); background-repeat: no-repeat"></div>
+            <div class="gallery-item" game-id="<%- game.gameId %>" style="background-image: url('https://<%- game.url %>'); background-repeat: no-repeat">
+                <a href="/game?ids=<%- game.gameId %>" style="display:block; width:100%; height:100%;"></a>
+            </div>
         <% } %>
     </div>
 </div>
