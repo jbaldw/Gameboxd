@@ -17,9 +17,16 @@
                 <p>Welcome to Gameboxd</p>
 
                 <h2 class="center-text">Recent Releases</h2>
-                <div id="gallery-home"></div>
+                <script>
+                    axios.get('/recentlyAdded')
+                        .then(response) => {
+                            <%- include('../partials/gallery', {data: response}) %>
+                        };
+                </script>
             </div>
         </main>
+
+        
 
         <!-- Currently needs to be added on all full pages in views -->
         <script>
@@ -35,21 +42,24 @@
                     aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
                     userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
 
+                    let galleryItems = document.getElementsByClassName('gallery-item');
+
+                    console.log(galleryItems);
+
+                    for (let i = 0; i < galleryItems.length; i++) {
+                        console.log('Loop');
+                        let anchor = galleryItems.item(i).firstChild;
+                        anchor.setAttribute("href", "/game?token=" + "<%- token %>" + "&ids=" + galleryItems.item(i).getAttribute("game-id"));
+                    }
+
+                    console.log('Post Loop');
+
                     userDiv.innerHTML = "Profile";
                 <% } else { %>
                     userDiv.setAttribute("href", "/signin");
                     userDiv.innerHTML = "Sign In";
                 <% } %>
             }
-
-            $(document).ready(function() {
-                let galleryItems = document.getElementsByClassName('gallery-item');
-
-                for (let i = 0; i < galleryItems.length; i++) {
-                    let anchor = galleryItems.item(i).firstChild;
-                    anchor.setAttribute("href", "/game?token=" + "<%- token %>" + "&ids=" + galleryItems.item(i).getAttribute("game-id"));
-                }
-            });
         </script>
     </body>
 </html>
