@@ -13,8 +13,6 @@ initializeApp({
     credential: applicationDefault()
 });
 
-
-
 const db = getFirestore();
 
 const app = express();
@@ -201,7 +199,7 @@ app.get('/game', (req, res) => {
                         return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
                     }
                     else {
-                        uid = decodedToken.uid
+                        uid = decodedToken.uid;
         
                         return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
                     }
@@ -219,8 +217,8 @@ app.get('/game', (req, res) => {
     })
 })
 
-// Endpoint for retrieving 10 random games
-app.get('/randomTen', (req, res) => {
+// Endpoint for retrieving recently added games
+app.get('/recentlyAdded', (req, res) => {
     const hostname = req.hostname;
 
     if(hostname != 'localhost' && hostname != 'gameboxd.com') {

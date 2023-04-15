@@ -27,12 +27,18 @@
             let aboutDiv = document.getElementById('aboutHandle');
             let userDiv = document.getElementById('userHandle');
 
+            let galleryItems = document.getElementsByClassName('gallery-item');
+
             window.onload = (e) => {
                 <% if(uid != -1) { %>
                     logoDiv.setAttribute("href", "/?token=" + "<%- token %>");
                     homeDiv.setAttribute("href", "/?token=" + "<%- token %>");
                     aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
                     userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
+
+                    for (let i = 0; i < galleryItems.length; i++) {
+                        galleryItems[i].setAttribute("href", "/game?token=" + "<%- token %>" + "&id=" + galleryItems[i].getAttribute("game-id"));
+                    }
 
                     userDiv.innerHTML = "Profile";
                 <% } else { %>

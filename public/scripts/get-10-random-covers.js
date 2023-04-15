@@ -1,4 +1,4 @@
-axios.get('/randomTen')
+axios.get('/recentlyAdded')
     .then((response) => {
         const gallery = $("#gallery-home");
 
@@ -14,6 +14,8 @@ axios.get('/randomTen')
 
             galleryItem = $('<div class="gallery-item" id=' + response.data[i].gameId 
                             + '><a href="/game?ids=' + response.data[i].gameId + '" style="display:block; width:100%; height:100%;"></a></div>');
+
+            galleryItem.attribute('game-id', response.data[i].gameId);
 
             galleryItem.css({'background-image': 'url(https://' + response.data[i].url + ')',
                              'background-repeat': 'no-repeat'});
