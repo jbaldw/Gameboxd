@@ -33,8 +33,6 @@ app.get('/', (req, res) => {
     let uid = -1;
 
     query.then((data) => {
-        res.send(data);
-
         if(typeof token !== 'undefined') {
             getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
                 if(invalidId) {
