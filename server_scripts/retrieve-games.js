@@ -20,6 +20,7 @@ module.exports = new Promise((resolve, reject) => {
         .fields(["cover", "first_release_date"])
         .where("first_release_date < " + currentUnixTime + " & first_release_date > " + (currentUnixTime - 604800))
         .sort("first_release_date desc")
+        .limit(25)
         .request(gameEndpoint)
         .then((response) => {
             const coverIds = [];
