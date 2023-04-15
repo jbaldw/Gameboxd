@@ -32,26 +32,30 @@ app.get('/', (req, res) => {
 
     let uid = -1;
 
-    if(typeof token !== 'undefined') {
-        getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
-            if(invalidId) {
-                return res.render('pages/index.ejs', {uid: uid, token: token});
-            }
-            else {
-                uid = decodedToken.uid
+    query.then((data) => {
+        res.send(data);
 
-                return res.render('pages/index.ejs', {uid: uid, token: token});
-            }
-        })
-        .catch((err) => {
-            console.log("ERROR: " + err);
-
-            return res.render('pages/index.ejs', {uid: uid, token: token});
-        });
-    } 
-    else {
-        res.render('pages/index.ejs', {uid: uid, token: token});
-    }
+        if(typeof token !== 'undefined') {
+            getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
+                if(invalidId) {
+                    return res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+                }
+                else {
+                    uid = decodedToken.uid
+    
+                    return res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+                }
+            })
+            .catch((err) => {
+                console.log("ERROR: " + err);
+    
+                return res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+            });
+        } 
+        else {
+            res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+        }
+    });
 });
 
 // Endpoint for the about page

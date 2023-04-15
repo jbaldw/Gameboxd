@@ -17,12 +17,7 @@
                 <p>Welcome to Gameboxd</p>
 
                 <h2 class="center-text">Recent Releases</h2>
-                <script>
-                    axios.get('/recentlyAdded')
-                        .then(response) => {
-                            <%- include('../partials/gallery', {data: response}) %>
-                        };
-                </script>
+                <%- include('../partials/gallery', {data: games}) %>
             </div>
         </main>
 
