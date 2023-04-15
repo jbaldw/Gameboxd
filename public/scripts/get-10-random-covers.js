@@ -15,7 +15,7 @@ axios.get('/recentlyAdded')
             galleryItem = $('<div class="gallery-item" id=' + response.data[i].gameId 
                             + '><a href="/game?ids=' + response.data[i].gameId + '" style="display:block; width:100%; height:100%;"></a></div>');
 
-            galleryItem.attribute('game-id', response.data[i].gameId);
+            galleryItem.attr('game-id', response.data[i].gameId);
 
             galleryItem.css({'background-image': 'url(https://' + response.data[i].url + ')',
                              'background-repeat': 'no-repeat'});
