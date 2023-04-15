@@ -38,7 +38,8 @@
                     userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
 
                     for (let i = 0; i < galleryItems.length; i++) {
-                        galleryItems[i].setAttribute("href", "/game?token=" + "<%- token %>" + "&id=" + galleryItems[i].getAttribute("game-id"));
+                        let anchor = galleryItems[i].firstChild;
+                        anchor.setAttribute("href", "/game?token=" + "<%- token %>" + "&ids=" + galleryItems[i].getAttribute("game-id"));
                     }
 
                     userDiv.innerHTML = "Profile";
