@@ -1,6 +1,7 @@
 <div id="gallery-home">
     <div class="gallery-row">
         <% for(let game of data) { %>
+            <%- console.log(data) %>
             <div class="gallery-item" game-id="<%- game.gameId %>" style="background-image: url('https://<%- game.url %>'); background-repeat: no-repeat;"</div>
         <% } %>
     </div>
