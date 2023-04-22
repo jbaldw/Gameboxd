@@ -179,13 +179,13 @@ app.get('/game', (req, res) => {
         }
 
         Promise.all([ratings, genres, platforms, cover]).then((values) => {
-            values['ratings'] = values[0] !== undefined ? values[0] : "No Value Given";
+            values['ratings'] = values[0] !== undefined ? values[0] : ["No Value Given"];
             delete values[0];
 
-            values['genres'] = values[1] !== undefined ? values[1] : "No Value Given";
+            values['genres'] = values[1] !== undefined ? values[1] : ["No Value Given"];
             delete values[1];
 
-            values['platforms'] = values[2] !== undefined ? values[2] : "No Value Given";
+            values['platforms'] = values[2] !== undefined ? values[2] : ["No Value Given"];
             delete values[2];
 
             values['cover'] = values[3] !== undefined ? values[3] : "No Value Given";
