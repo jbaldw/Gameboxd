@@ -8,29 +8,31 @@
             <%- include('../partials/header'); %>
             <link rel="stylesheet" href="/public/styles/homepage.css">
         </header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#"><%- data.name %></a>
-          </div>
-        </nav>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="gallery-item img-fluid mt-3" style="background-image: url(https://<%-data.cover[0].url%>); background-repeat: no-repeat;"></div>
+        <div class="jumbotron">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><%- data.name %></a>
             </div>
-            <div class="col-md-8">
-              <h2 class="mt-3">Game Information</h2>
-              <ul class="list-group">
-                <li class="list-group-item">Release Date: <%- data.release_date %></li>
+          </nav>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="gallery-item img-fluid mt-3" style="background-image: url(https://<%-data.cover[0].url%>); background-repeat: no-repeat;"></div>
+              </div>
+              <div class="col-md-8">
+                <h2 class="mt-3">Game Information</h2>
+                <ul class="list-group">
+                  <li class="list-group-item">Release Date: <%- data.release_date %></li>
 
-                <li class="list-group-item">Ratings: <%= data.ratings.map(function(rating) { return rating.category }).join(', ') %></li>
-                <li class="list-group-item">Genres: <%= data.genres.map(function(genre) { return genre.name }).join(', ') %></li>
-                <li class="list-group-item">Platforms: <%= data.platforms.map(function(platform) { return platform.name }).join(', ') %></li>
-              </ul>
-              
-      
-              <h2 class="mt-3">Game Description</h2>
-              <p><%- data.summary %></p>                
+                  <li class="list-group-item">Ratings: <%= data.ratings.map(function(rating) { return rating.category }).join(', ') %></li>
+                  <li class="list-group-item">Genres: <%= data.genres.map(function(genre) { return genre.name }).join(', ') %></li>
+                  <li class="list-group-item">Platforms: <%= data.platforms.map(function(platform) { return platform.name }).join(', ') %></li>
+                </ul>
+                
+        
+                <h2 class="mt-3">Game Description</h2>
+                <p><%- data.summary %></p>                
+              </div>
             </div>
           </div>
         </div>
