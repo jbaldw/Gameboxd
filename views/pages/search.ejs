@@ -26,6 +26,7 @@
             let homeDiv = document.getElementById('homeHandle');
             let aboutDiv = document.getElementById('aboutHandle');
             let userDiv = document.getElementById('userHandle');
+            let searchDiv = document.getElementById('formHandle');
 
             window.onload = (e) => {
                 <% if(uid != -1) { %>
@@ -33,6 +34,7 @@
                     homeDiv.setAttribute("href", "/?token=" + "<%- token %>");
                     aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
                     userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
+                    searchDiv.setAttribute("action", "/search?token=" + "<%- token %>");
 
                     userDiv.innerHTML = "Profile";
 
