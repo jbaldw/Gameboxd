@@ -23,7 +23,7 @@ app.set('view engine', 'ejs');
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.use('/favicon.ico', express.static('images/favicon.ico'));
+app.use('/favicon.ico', 'images/favicon.ico');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
