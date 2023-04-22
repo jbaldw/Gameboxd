@@ -3,6 +3,7 @@ const path = require('path');
 const query = require('./server_scripts/retrieve-games.js');
 const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js');
 const retrieveSpecificModule = require('./server_scripts/retrieve-specific-data.js');
+const searchGamesModule = require('./server_scripts/search-games.js');
 const bodyParser = require('body-parser');
 
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
@@ -222,16 +223,24 @@ app.get('/game', (req, res) => {
 
 // Endpoint for retrieving recently added games
 app.get('/recentlyAdded', (req, res) => {
-    const hostname = req.hostname;
+    query.then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
 
-    if(hostname != 'localhost' && hostname != 'gameboxd.com') {
-        res.send("You do not have access to this page");
-    }
-    else {
-        query.then((data) => {
-            res.send(data);
-        });
-    }
+// Endpoint for searching for games
+app.get('/search', (req, res) => {
+    const search = req.query.search;
+    
+    searchGamesModule.getGameData(search).then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 });
 
 // Endpoint for retrieving raw individual game data
