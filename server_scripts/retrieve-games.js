@@ -26,7 +26,7 @@ module.exports = new Promise((resolve, reject) => {
             const coverIds = [];
 
             for (let data of response.data) {
-                if(data.cover) {
+                if("cover" in data) {
                     coverIds.push(data.cover);
                 }
             }
@@ -37,6 +37,7 @@ module.exports = new Promise((resolve, reject) => {
             client
                 .fields(['url', 'game'])
                 .where(generateIds(coverIds))
+                .limit(25)
                 .request(coverEndpoint)
                 .then((response) => {
                     const urls = [];
