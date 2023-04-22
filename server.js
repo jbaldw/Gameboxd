@@ -181,6 +181,7 @@ app.get('/game', (req, res) => {
         }
 
         Promise.all([ratings, genres, platforms, cover]).then((values) => {
+            console.log('RATINGS: ' + values[0]);
             values['ratings'] = values[0] !== undefined ? values[0] : ["No Value Given"];
             delete values[0];
 
