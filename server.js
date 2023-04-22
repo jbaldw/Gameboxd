@@ -148,12 +148,12 @@ app.get('/game', (req, res) => {
     const gameData = {};
 
     retrieveSpecificModule.getGameData(ids, fields, endpoint).then((data) => {
-        let ratings = "No Ratings Given";
-        let releaseDate = "No Release Date Given";
-        let genres = "No Genre's Given";
-        let platforms = "No Platforms Given";
-        let summary = "No Summary Given";
-        let cover = "No Cover Given";
+        let ratings = "No Value Given";
+        let releaseDate = "No Value Given";
+        let genres = "No Value Given";
+        let platforms = "No Value Given";
+        let summary = "No Value Given";
+        let cover = "No Value Given";
 
         if(data[0].hasOwnProperty('age_ratings')) {
             ratings = retrieveSpecificModule.getGameData(data[0].age_ratings, "*", "age_ratings");
@@ -181,26 +181,25 @@ app.get('/game', (req, res) => {
         }
 
         Promise.all([ratings, genres, platforms, cover]).then((values) => {
-            console.log('RATINGS: ' + values[0]);
-            values['ratings'] = values[0] !== undefined ? values[0] : ["No Value Given"];
+            values['ratings'] = values[0] !== "No Value Given" ? values[0] : ["No Value Given"];
             delete values[0];
 
-            values['genres'] = values[1] !== undefined ? values[1] : ["No Value Given"];
+            values['genres'] = values[1] !== "No Value Given" ? values[1] : ["No Value Given"];
             delete values[1];
 
-            values['platforms'] = values[2] !== undefined ? values[2] : ["No Value Given"];
+            values['platforms'] = values[2] !== "No Value Given" ? values[2] : ["No Value Given"];
             delete values[2];
 
-            values['cover'] = values[3] !== undefined ? values[3] : "No Value Given";
+            values['cover'] = values[3] !== "No Value Given" ? values[3] : "No Value Given";
             delete values[3];
 
             if (values['cover'] !== "No Value Given") {
                 values['cover'][0].url = values['cover'][0].url.substring(2).replace("t_thumb", "t_cover_big");
             }
 
-            values['name'] = data[0].name !== undefined ? data[0].name : "No Value Given";
-            values['release_date'] = releaseDate !== undefined ? releaseDate : "No Value Given";
-            values['summary'] = summary !== undefined ? summary : "No Value Given";
+            values['name'] = data[0].name !== "No Value Given" ? data[0].name : "No Value Given";
+            values['release_date'] = releaseDate !== "No Value Given" ? releaseDate : "No Value Given";
+            values['summary'] = summary !== "No Value Given" ? summary : "No Value Given";
 
             if(typeof token !== 'undefined') {
                 getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
