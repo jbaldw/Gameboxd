@@ -15,6 +15,7 @@ module.exports.getGameData = function(ids, fields, endpoint) {
         client
             .fields(fields)
             .where(generateIds(ids))
+            .limit(limit)
             .request(gameEndpoint + endpoint)
             .then((response) => {
                 resolve(response.data);
