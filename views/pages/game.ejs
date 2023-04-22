@@ -8,102 +8,53 @@
             <%- include('../partials/header'); %>
             <link rel="stylesheet" href="/public/styles/homepage.css">
         </header>
-
-        <main>
-            <div class="jumbotron bg-primary text-white">
-              <h1><%- data.name %></h1>
-              <p class="lead"><%- data.summary %></p>
-              <div class="gallery-home">
-                <div class="gallery-row">
-                    <div class="gallery-item" style="background-image: url(https://<%-data.cover[0].url%>); background-repeat: no-repeat;"></div>
-                </div>
-              </div>
-              <!-- <img src="<%- data.cover[0].url %>" width="<%- data.cover[0].width %>" height="<%- data.cover[0].height %>"> -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#"><%- data.name %></a>
+          </div>
+        </nav>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="gallery-item img-fluid mt-3" style="background-image: url(https://<%-data.cover[0].url%>); background-repeat: no-repeat;"></div>
             </div>
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-4">
-                  <p>
-                    <span>Ratings: </span>
-                    <% for(let rating of data.ratings) { %>
-                        <span><%- rating.category %></span>
-                    <% } %>
-                  </p>
-                </div>
-                <div class="col-md-4">
-                  <p>
-                    <span>Genres: </span>
-                    <% for(let genre of data.genres) { %>
-                        <span><%- genre.name %></span>
-                    <% } %>
-                  </p>
-                </div>
-                <div class="col-md-4">
-                  <p>
-                    <span>Platforms: </span>
-                    <% for(let platform of data.platforms) { %>
-                        <span><%- platform.name %></span>
-                    <% } %>
-                  </p>
-                </div>
-              </div>
-              <p>
-                <span>Release Date: <%- data.release_date %></span>
-              </p>
-            </div>
-          </main>
+            <div class="col-md-8">
+              <h2 class="mt-3">Game Information</h2>
+              <ul class="list-group">
+                <li class="list-group-item">Release Date: <%- data.release_date %></li>
 
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#"><%- data.name %></a>
-            </div>
-          </nav>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="gallery-item img-fluid mt-3" style="background-image: url(https://<%-data.cover[0].url%>); background-repeat: no-repeat;"></div>
-              </div>
-              <div class="col-md-8">
-                <h2 class="mt-3">Game Information</h2>
-                <ul class="list-group">
-                  <li class="list-group-item">Release Date: <%- data.release_date %></li>
-
-                  <ul class="list-group">
-                    <% for (var i = 0; i < data.ratings.length; i++) { %>
-                      <li class="list-group-item"><%- data.ratings[i].category %></li>
-                    <% } %>
-                  </ul>
-                </ul>
-        
-                <h2 class="mt-3">Game Description</h2>
-                <p><%- data.summary %></p>                
-              </div>
+                <li class="list-group-item">Ratings: <%= data.ratings.map(function(rating) { return rating.category }).join(', ') %></li>
+                <li class="list-group-item">Genres: <%= data.genres.map(function(genre) { return genre.name }).join(', ') %></li>
+                <li class="list-group-item">Platforms: <%= data.platforms.map(function(platform) { return platform.name }).join(', ') %></li>
+              </ul>
+              
+      
+              <h2 class="mt-3">Game Description</h2>
+              <p><%- data.summary %></p>                
             </div>
           </div>
+        </div>
 
+        <!-- Currently needs to be added on all full pages in views -->
+        <script>
+          let logoDiv = document.getElementById('logoHandle');
+          let homeDiv = document.getElementById('homeHandle');
+          let aboutDiv = document.getElementById('aboutHandle');
+          let userDiv = document.getElementById('userHandle');
 
+          window.onload = (e) => {
+              <% if(uid != -1) { %>
+                  logoDiv.setAttribute("href", "/?token=" + "<%- token %>");
+                  homeDiv.setAttribute("href", "/?token=" + "<%- token %>");
+                  aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
+                  userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
 
-
-          <!-- Currently needs to be added on all full pages in views -->
-          <script>
-            let logoDiv = document.getElementById('logoHandle');
-            let homeDiv = document.getElementById('homeHandle');
-            let aboutDiv = document.getElementById('aboutHandle');
-            let userDiv = document.getElementById('userHandle');
-
-            window.onload = (e) => {
-                <% if(uid != -1) { %>
-                    logoDiv.setAttribute("href", "/?token=" + "<%- token %>");
-                    homeDiv.setAttribute("href", "/?token=" + "<%- token %>");
-                    aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
-                    userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
-
-                    userDiv.innerHTML = "Profile";
-                <% } else { %>
-                    userDiv.setAttribute("href", "/signin");
-                    userDiv.innerHTML = "Sign In";
-                <% } %>
-            }
-        </script>
+                  userDiv.innerHTML = "Profile";
+              <% } else { %>
+                  userDiv.setAttribute("href", "/signin");
+                  userDiv.innerHTML = "Sign In";
+              <% } %>
+          }
+      </script>
     </body>
 </html>
