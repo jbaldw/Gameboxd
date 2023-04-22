@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
                 if(invalidId) {
                     return res.render('pages/index.ejs', {uid: uid, token: token, games: data});
                 }
-                else {
+                else {    
                     uid = decodedToken.uid
     
                     return res.render('pages/index.ejs', {uid: uid, token: token, games: data});

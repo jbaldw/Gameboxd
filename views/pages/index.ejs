@@ -37,6 +37,8 @@
                     aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
                     userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
 
+                    userDiv.innerHTML = "Profile";
+
                     let galleryItems = document.getElementsByClassName('gallery-item');
 
                     console.log(galleryItems);
