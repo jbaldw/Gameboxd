@@ -57,6 +57,11 @@ app.get('/', (req, res) => {
     });
 });
 
+// Endpoint for serving favicon.ico
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile('favicon.ico');
+});
+
 // Endpoint for the about page
 app.get('/about', (req, res) => {
     const token = req.query.token;
