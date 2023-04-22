@@ -10,7 +10,7 @@ function generateIds(ids) {
 
 const client = igdb(process.env.CLIENT_ID, process.env.AUTHORIZATION);
 
-module.exports.getGameData = function(ids, fields, endpoint) {
+module.exports.getGameData = function(ids, fields, endpoint, limit = 10) {
     return new Promise((resolve, reject) => {
         client
             .fields(fields)
