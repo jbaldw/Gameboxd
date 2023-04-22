@@ -3,7 +3,11 @@ require('dotenv').config();
 const igdb = require('igdb-api-node').default;
 
 const gameEndpoint = 'https://api.igdb.com/v4/games';
-const coverEndpoint = 'https://api.igdb.com/v4/covers'
+const coverEndpoint = 'https://api.igdb.com/v4/covers';
+
+function generateIds(ids) {
+    return "id = (" + ids + ");";
+}
 
 const client = igdb(process.env.CLIENT_ID, process.env.AUTHORIZATION);
 
