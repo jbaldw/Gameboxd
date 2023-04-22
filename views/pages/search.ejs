@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+        <link rel="stylesheet" href="/public/styles/homepage.css">
+        <!-- <script src="/public/scripts/get-10-random-covers.js"></script> -->
+        <script src="/public/scripts/get-game-data.js"></script>
+    </head>
+    <body class="container">
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+
+        <main>
+            <div class="jumbotron">
+                <h2 class="center-text">Search Results</h2>
+                <%- include('../partials/gallery', {data: games}) %>
+            </div>
+        </main>
+
+        
+
+        <!-- Currently needs to be added on all full pages in views -->
+        <script>
+            let logoDiv = document.getElementById('logoHandle');
+            let homeDiv = document.getElementById('homeHandle');
+            let aboutDiv = document.getElementById('aboutHandle');
+            let userDiv = document.getElementById('userHandle');
+
+            window.onload = (e) => {
+                <% if(uid != -1) { %>
+                    logoDiv.setAttribute("href", "/?token=" + "<%- token %>");
+                    homeDiv.setAttribute("href", "/?token=" + "<%- token %>");
+                    aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
+                    userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
+
+                    userDiv.innerHTML = "Profile";
+
+                    let galleryItems = document.getElementsByClassName('gallery-item');
+
+                    console.log(galleryItems);
+
+                    for (let i = 0; i < galleryItems.length; i++) {
+                        console.log('Loop');
+                        let anchor = galleryItems.item(i).firstChild;
+                        anchor.setAttribute("href", "/game?token=" + "<%- token %>" + "&ids=" + galleryItems.item(i).getAttribute("game-id"));
+                    }
+
+                    console.log('Post Loop');
+
+                    userDiv.innerHTML = "Profile";
+                <% } else { %>
+                    userDiv.setAttribute("href", "/signin");
+                    userDiv.innerHTML = "Sign In";
+                <% } %>
+            }
+        </script>
+    </body>
+</html>

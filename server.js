@@ -234,9 +234,31 @@ app.get('/recentlyAdded', (req, res) => {
 // Endpoint for searching for games
 app.get('/search', (req, res) => {
     const search = req.query.search;
+    const token = req.query.token;
+
+    let uid = -1;
     
     searchGamesModule.getGameData(search).then((data) => {
-        res.send(data);
+        if(typeof token !== 'undefined') {
+            getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
+                if(invalidId) {
+                    return res.render('pages/search.ejs', {games: data, uid: uid, token: token});
+                }
+                else {
+                    uid = decodedToken.uid;
+    
+                    return res.render('pages/search.ejs', {games: data, uid: uid, token: token});
+                }
+            })
+            .catch((err) => {
+                console.log("ERROR: " + err);
+    
+                return res.render('pages/search.ejs', {games: data, uid: uid, token: token});
+            });
+        } 
+        else {
+            res.render('pages/search.ejs', {games: data, uid: uid, token: token});
+        }
     })
     .catch((err) => {
         console.log(err);
