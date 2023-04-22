@@ -179,23 +179,25 @@ app.get('/game', (req, res) => {
         }
 
         Promise.all([ratings, genres, platforms, cover]).then((values) => {
-            values['ratings'] = values[0];
+            values['ratings'] = values[0] !== undefined ? values[0] : "No Value Given";
             delete values[0];
 
-            values['genres'] = values[1];
+            values['genres'] = values[1] !== undefined ? values[1] : "No Value Given";
             delete values[1];
 
-            values['platforms'] = values[2];
+            values['platforms'] = values[2] !== undefined ? values[2] : "No Value Given";
             delete values[2];
 
-            values['cover'] = values[3];
+            values['cover'] = values[3] !== undefined ? values[3] : "No Value Given";
             delete values[3];
 
-            values['cover'][0].url = values['cover'][0].url.substring(2).replace("t_thumb", "t_cover_big")
-            
-            values['name'] = data[0].name;
-            values['release_date'] = releaseDate;
-            values['summary'] = summary;
+            if (values['cover'] !== "No Value Given") {
+                values['cover'][0].url = values['cover'][0].url.substring(2).replace("t_thumb", "t_cover_big");
+            }
+
+            values['name'] = data[0].name !== undefined ? data[0].name : "No Value Given";
+            values['release_date'] = releaseDate !== undefined ? releaseDate : "No Value Given";
+            values['summary'] = summary !== undefined ? summary : "No Value Given";
 
             if(typeof token !== 'undefined') {
                 getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
