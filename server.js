@@ -306,8 +306,8 @@ app.get('/getReviews', (req, res) => {
 
 // Endpoint for storing reviews in Firestore
 app.post('/addReview', (req, res) => {
-    res.send(req);
-    
+    res.send(req.body);
+
     const review = req.body.params.review;
     const gameId = req.body.params.gameId;
     const uid = req.body.params.uid;
