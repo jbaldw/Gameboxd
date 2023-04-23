@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 
 // Endpoint for serving favicon.ico
 app.get('/favicon.ico', (req, res) => {
-    res.sendFile('favicon.ico');
+    res.sendFile(path.join(__dirname, 'public', 'favicon.ico'));
 });
 
 // Endpoint for the about page
