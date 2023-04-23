@@ -207,22 +207,22 @@ app.get('/game', (req, res) => {
             if(typeof token !== 'undefined') {
                 getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
                     if(invalidId) {
-                        return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
+                        return res.render('pages/game.ejs', {data: values, uid: uid, token: token, gameId: ids});
                     }
                     else {
                         uid = decodedToken.uid;
         
-                        return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
+                        return res.render('pages/game.ejs', {data: values, uid: uid, token: token, gameId: ids});
                     }
                 })
                 .catch((err) => {
                     console.log("ERROR: " + err);
         
-                    return res.render('pages/game.ejs', {data: values, uid: uid, token: token});
+                    return res.render('pages/game.ejs', {data: values, uid: uid, token: token, gameId: ids});
                 });
             } 
             else {
-                res.render('pages/game.ejs', {data: values, uid: uid, token: token});
+                res.render('pages/game.ejs', {data: values, uid: uid, token: token, gameId: ids});
             }
         })
     })
@@ -282,6 +282,45 @@ app.get('/gameData', (req, res) => {
     .catch((err) => {
         console.log(err);
     });
+});
+
+// Endpoint for retrieving reviews from Firestore
+app.get('/getReviews', (req, res) => {
+    const gameId = req.query.gameId;
+
+    const collectionRef = db.collection('reviews');
+
+    collectionRef.where('gameId', '==', gameId).get().then((snapshot) => {
+        let reviews = [];
+
+        snapshot.forEach((doc) => {
+            reviews.push(doc.data());
+        });
+
+        res.send(reviews);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
+
+// Endpoint for storing reviews in Firestore
+app.post('/addReview', (req, res) => {
+    const review = req.body.params.review;
+    const gameId = req.body.params.gameId;
+    const uid = req.body.params.uid;
+    //const username = req.body.params.username;
+
+    if(uid != -1) {
+        const collectionRef = db.collection('reviews');
+
+        collectionRef.add({
+            review: review,
+            gameId: gameId,
+            uid: uid
+            //username: username
+        });
+    }
 });
 
 // Endpoint for adding a user to Firestore

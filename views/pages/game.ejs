@@ -37,6 +37,8 @@
                   <div class="form-group">
                     <label for="review">Leave a review:</label>
                     <textarea class="form-control" id="review" name="review" rows="5"></textarea>
+                    <input type="hidden" name="gameId" value="<%- gameId %>" />
+                    <input type="hidden" name="uid" value="<%- uid %>" />
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
