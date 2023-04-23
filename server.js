@@ -308,6 +308,7 @@ app.get('/getReviews', (req, res) => {
 app.post('/addReview', (req, res) => {
     const review = req.body.review;
     const gameId = req.body.gameId;
+    const token = req.body.token;
     const uid = req.body.uid;
     //const username = req.body.params.username;
 
@@ -321,6 +322,29 @@ app.post('/addReview', (req, res) => {
             //username: username
         });
     }
+
+    query.then((data) => {
+        if(typeof token !== 'undefined') {
+            getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
+                if(invalidId) {
+                    return res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+                }
+                else {    
+                    uid = decodedToken.uid
+    
+                    return res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+                }
+            })
+            .catch((err) => {
+                console.log("ERROR: " + err);
+    
+                return res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+            });
+        } 
+        else {
+            res.render('pages/index.ejs', {uid: uid, token: token, games: data});
+        }
+    });
 });
 
 // Endpoint for adding a user to Firestore
