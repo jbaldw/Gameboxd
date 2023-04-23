@@ -31,7 +31,15 @@
                 
         
                 <h2 class="mt-3">Game Description</h2>
-                <p><%- data.summary %></p>                
+                <p><%- data.summary %></p>
+                
+                <form action="/reviews" method="POST">
+                  <div class="form-group">
+                    <label for="review">Leave a review:</label>
+                    <textarea class="form-control" id="review" name="review" rows="5"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
               </div>
             </div>
           </div>
