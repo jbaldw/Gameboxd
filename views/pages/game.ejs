@@ -65,15 +65,19 @@
                     });
 
                     <% if(uid != -1) { %>
-                        if(document.getElementById('review').value != "") {
-                          let submitButton = document.getElementById('submit-button');
+                        let reviewInput = document.getElementById('review');
 
-                          submitButton.disabled = false;
-                        } else {
-                          let submitButton = document.getElementById('submit-button');
+                        reviewInput.addEventListener('input', function(e) {
+                          if(document.getElementById('review').value != "") {
+                            let submitButton = document.getElementById('submit-button');
 
-                          submitButton.disabled = true;
-                        }
+                            submitButton.disabled = false;
+                          } else {
+                            let submitButton = document.getElementById('submit-button');
+
+                            submitButton.disabled = true;
+                          }
+                        });
                     <% } %>
                 </script>
               </div>
