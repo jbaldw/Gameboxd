@@ -105,32 +105,32 @@ app.get('/profile', (req, res) => {
             else {
                 uid = decodedToken.uid
             }
-        })
-        .catch((err) => {
-            console.log("ERROR: " + err);
-        });
 
-        const collectionRef = db.collection('reviews');
+            const collectionRef = db.collection('reviews');
 
-        console.log("UID IS: " + uid);
+            console.log("UID IS: " + uid);
 
-        collectionRef.where('uid', '==', uid).get().then((snapshot) => {
-            console.log(snapshot);
-            
-            let gameIds = [];
+            collectionRef.where('uid', '==', uid).get().then((snapshot) => {
+                console.log(snapshot);
+                
+                let gameIds = [];
 
-            snapshot.forEach((doc) => {
-                gameIds.push(1000);
-            });
+                snapshot.forEach((doc) => {
+                    gameIds.push(doc.data().gameId);
+                });
 
-            retrieveProfileGamesModule.getGameData(gameIds).then((data) => {
-                return res.render('pages/profile.ejs', {uid: uid, token: token, games: data});
+                retrieveProfileGamesModule.getGameData(gameIds).then((data) => {
+                    return res.render('pages/profile.ejs', {uid: uid, token: token, games: data});
+                })
             })
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
+            .catch((err) => {
+                console.log(err);
+            });
+            })
+            .catch((err) => {
+                console.log("ERROR: " + err);
+            });
+        }
 });
 
 // Endpoint for the signin page
