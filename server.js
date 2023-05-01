@@ -112,6 +112,8 @@ app.get('/profile', (req, res) => {
 
         const collectionRef = db.collection('reviews');
 
+        console.log('uid');
+
         collectionRef.where('uid', '==', uid).get().then((snapshot) => {
             let gameIds = [];
 
