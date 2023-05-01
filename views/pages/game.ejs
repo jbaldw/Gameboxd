@@ -67,6 +67,10 @@
                     <% if(uid != -1) { %>
                         let reviewInput = document.getElementById('review');
 
+                        let submitButton = document.getElementById('submit-button');
+
+                        submitButton.disabled = true;
+
                         reviewInput.addEventListener('input', function(e) {
                           if(document.getElementById('review').value != "") {
                             let submitButton = document.getElementById('submit-button');
