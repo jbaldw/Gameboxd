@@ -17,7 +17,7 @@ module.exports.getGameData = function(gameIds) {
     return new Promise((resolve, reject) => {
         client
             .fields(["cover", "first_release_date"])
-            .where(generateIds(ids))
+            .where(generateIds(gameIds))
             .limit(100)
             .request(gameEndpoint)
             .then((response) => {
