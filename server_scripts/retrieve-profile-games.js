@@ -13,7 +13,7 @@ function generateIds(ids) {
 
 const client = igdb(process.env.CLIENT_ID, process.env.AUTHORIZATION);
 
-module.exports = function getGameData(gameIds) {
+module.exports.getGameData = function(gameIds) {
     return new Promise((resolve, reject) => {
         client
             .fields(["cover", "first_release_date"])
