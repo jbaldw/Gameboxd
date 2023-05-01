@@ -3,6 +3,7 @@ const path = require('path');
 const query = require('./server_scripts/retrieve-games.js');
 const retrieveIndivdualModule = require('./server_scripts/retrieve-individual.js');
 const retrieveSpecificModule = require('./server_scripts/retrieve-specific-data.js');
+const retrieveProfileGamesModule = require('./server_scripts/retrieve-profile-games.js');
 const searchGamesModule = require('./server_scripts/search-games.js');
 const bodyParser = require('body-parser');
 
@@ -90,7 +91,7 @@ app.get('/about', (req, res) => {
     }
 });
 
-// Endpoint for retrieving user profile data
+// Endpoint for retrieving user profile data and user reviews
 app.get('/profile', (req, res) => {
     const token = req.query.token;
 
@@ -99,22 +100,32 @@ app.get('/profile', (req, res) => {
     if(typeof token !== 'undefined') {
         getAuth().verifyIdToken(token).then((decodedToken, invalidId) => {
             if(invalidId) {
-                return res.render('pages/profile.ejs', {uid: uid, token: token});
+                return "Invalid Profile ID";
             }
             else {
                 uid = decodedToken.uid
-
-                return res.render('pages/profile.ejs', {uid: uid, token: token});
             }
         })
         .catch((err) => {
             console.log("ERROR: " + err);
-            
-            return res.render('pages/profile.ejs', {uid: uid, token: token});
         });
-    }
-    else {
-        res.render('pages/profile.ejs', {uid: uid, token: token});
+
+        const collectionRef = db.collection('reviews');
+
+        collectionRef.where('uid', '==', uid).get().then((snapshot) => {
+            let gameIds = [];
+
+            snapshot.forEach((doc) => {
+                gameIds.push(doc.data().gameId);
+            });
+
+            retrieveProfileGamesModule.getGameData(gameIds).then((data) => {
+                return res.render('pages/profile.ejs', {uid: uid, token: token, games: data});
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
 });
 
