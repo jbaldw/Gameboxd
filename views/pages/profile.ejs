@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <%- include('../partials/head'); %>
+        <link rel="stylesheet" href="/public/styles/homepage.css">
+        <!-- <script src="/public/scripts/get-10-random-covers.js"></script> -->
+        <script src="/public/scripts/get-game-data.js"></script>
     </head>
     <body class="container">
         <header>
@@ -10,10 +13,12 @@
 
         <main>
             <div class="jumbotron">
-                <h1>This is the Profile Page</h1>
-                <p>Hello <%- uid %></p>
+                <h2 class="center-text">Your Reviews</h2>
+                <%- include('../partials/gallery', {data: games}) %>
             </div>
         </main>
+
+        
 
         <!-- Currently needs to be added on all full pages in views -->
         <script>
@@ -29,7 +34,18 @@
                     homeDiv.setAttribute("href", "/?token=" + "<%- token %>");
                     aboutDiv.setAttribute("href", "/about?token=" + "<%- token %>");
                     userDiv.setAttribute("href", "/profile?token=" + "<%- token %>");
-                    searcDiv.setAttribute("action", "/search?token=" + "<%- token %>");
+                    searchDiv.setAttribute("value", "<%- token %>");
+
+                    userDiv.innerHTML = "Profile";
+
+                    let galleryItems = document.getElementsByClassName('gallery-item');
+
+                    console.log(galleryItems);
+
+                    for (let i = 0; i < galleryItems.length; i++) {
+                        let anchor = galleryItems.item(i).firstElementChild;
+                        anchor.setAttribute("href", "/game?token=" + "<%- token %>" + "&ids=" + galleryItems.item(i).getAttribute("game-id"));
+                    }
 
                     userDiv.innerHTML = "Profile";
                 <% } else { %>
