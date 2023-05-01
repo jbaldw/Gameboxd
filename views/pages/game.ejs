@@ -54,7 +54,7 @@
                         let reviewItem = document.createElement('li');
                         reviewItem.classList.add('list-group-item');
                         reviewItem.innerHTML = review.review;
-                        if(review.uid == <%- uid %>) { 
+                        if(review.uid == '<%- uid %>') { 
                           reviewItem.style.backgroundColor = "#FDFD96";
                         }
                         reviewDiv.appendChild(reviewItem);
