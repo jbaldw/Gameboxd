@@ -116,8 +116,7 @@ app.get('/profile', (req, res) => {
             let gameIds = [];
 
             snapshot.forEach((doc) => {
-                console.log("DOC DATA: doc.data()");
-                gameIds.push(doc.data()['gameId'].toString());
+                gameIds.push(1000);
             });
 
             retrieveProfileGamesModule.getGameData(gameIds).then((data) => {
