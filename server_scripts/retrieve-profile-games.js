@@ -8,7 +8,7 @@ const rawQueryString = 'fields *;';
 //const gameIds = Array(10).fill().map(() => Math.trunc(9999 * Math.random()));
 
 function generateIds(ids) {
-    return "id = (" + ids + ");";
+    return "id = (" + ids + ")";
 }
 
 const client = igdb(process.env.CLIENT_ID, process.env.AUTHORIZATION);
