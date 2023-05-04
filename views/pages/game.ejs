@@ -40,7 +40,7 @@
                     <input type="hidden" name="uid" value="<%- uid %>" />
                     <input type="hidden" name="token" value="<%- token %>" />
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button disabled type="submit" id="submit-button" class="btn btn-primary">Submit</button>
                 </form>
 
                 <h2 class="mt-3">Reviews</h2>
@@ -54,12 +54,35 @@
                         let reviewItem = document.createElement('li');
                         reviewItem.classList.add('list-group-item');
                         reviewItem.innerHTML = review.review;
+                        if(review.uid == '<%- uid %>') { 
+                          reviewItem.style.backgroundColor = "#FDFD96";
+                        }
                         reviewDiv.appendChild(reviewItem);
                       });
                     })
                     .catch(function (error) {
                       console.log(error);
                     });
+
+                    <% if(uid != -1) { %>
+                        let reviewInput = document.getElementById('review');
+
+                        let submitButton = document.getElementById('submit-button');
+
+                        submitButton.disabled = true;
+
+                        reviewInput.addEventListener('input', function(e) {
+                          if(document.getElementById('review').value != "") {
+                            let submitButton = document.getElementById('submit-button');
+
+                            submitButton.disabled = false;
+                          } else {
+                            let submitButton = document.getElementById('submit-button');
+
+                            submitButton.disabled = true;
+                          }
+                        });
+                    <% } %>
                 </script>
               </div>
             </div>
